@@ -2,13 +2,22 @@ import React from "react"
 import styled from "styled-components"
 import { graphql } from "gatsby"
 
+// export const query = graphql`
+//   query($slug: String!) {
+//     markdownRemark(fields: { slug: { eq: $slug } }) {
+//       frontmatter {
+//         title
+//       }
+//       html
+//     }
+//   }
+// `
+
 export const query = graphql`
   query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-      }
-      html
+    contentfulDish(slug: { eq: $slug }) {
+      title
+      level
     }
   }
 `
@@ -16,10 +25,11 @@ export const query = graphql`
 const Dish = props => {
   return (
     <DishCard>
-      <h1>{props.data.markdownRemark.frontmatter.title}</h1>
-      <div
+      <h1>{props.data.contentfulDish.title}</h1>
+      <h5>{props.data.contentfulDish.level}</h5>
+      {/* <div
         dangerouslySetInnerHTML={{ __html: props.data.markdownRemark.html }}
-      ></div>
+      ></div> */}
     </DishCard>
   )
 }

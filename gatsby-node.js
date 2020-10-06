@@ -17,24 +17,22 @@ module.exports.createPages = async ({ graphql, actions }) => {
   const dishTemplate = path.resolve("./src/templates/dish.js")
   const res = await graphql(`
     query {
-      allMarkdownRemark {
+      allContentfulDish {
         edges {
           node {
-            fields {
-              slug
-            }
+            slug
           }
         }
       }
     }
   `)
 
-  res.data.allMarkdownRemark.edges.forEach(edge => {
+  res.data.allContentfulDish.edges.forEach(edge => {
     createPage({
       component: dishTemplate,
-      path: `/dish/${edge.node.fields.slug}`,
+      path: `/dish/${edge.node.slug}`,
       context: {
-        slug: edge.node.fields.slug,
+        slug: edge.node.slug,
       },
     })
   })

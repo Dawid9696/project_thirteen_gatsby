@@ -23,6 +23,19 @@ const Home = () => {
           }
         }
       }
+      allContentfulDish {
+        edges {
+          node {
+            title
+            level
+            people
+            slug
+            duration
+            createdAt(fromNow: true)
+            publishedDate(fromNow: true)
+          }
+        }
+      }
     }
   `)
   const { titleOfPage, owner } = data.site.siteMetadata
@@ -33,7 +46,7 @@ const Home = () => {
         {titleOfPage} | {owner} przepisy.pl
       </div>
 
-      {data.allMarkdownRemark.edges.map((edge, index) => (
+      {data.allContentfulDish.edges.map((edge, index) => (
         <Dish key={index} data={edge} />
       ))}
     </Shop>
@@ -48,4 +61,5 @@ const Shop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `
